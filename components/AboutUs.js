@@ -12,7 +12,7 @@ const AboutUs = () => {
       </div>
       <div className=" container-1 ">
         <div className="container-2 ">
-          <h2 className=" heading text-3xl font-bold">ABOUT DAILY SKETCH PRACTICE ksdjbcsk</h2>
+          <h2 className=" heading text-3xl font-bold">ABOUT DAILY SKETCH PRACTICE</h2>
           <div className="content-1">
             <p className="para-1">
               <strong>Scott Eaton's Bodies in Motion</strong> is an ongoing
