@@ -1,4 +1,4 @@
-import Show from "../../../components/Show";
+import Show from "../../../components/show/Show";
 
 const ShowRoute = () => {
   return (

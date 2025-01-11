@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { SearchOutlined, UserOutlined, MenuFoldOutlined, CloseOutlined } from '@ant-design/icons';
 
-import '../styles/header.scss';
+import './header.scss';
 
 const Header = () => {
   const [searchVisible, setSearchVisible] = useState(false); 

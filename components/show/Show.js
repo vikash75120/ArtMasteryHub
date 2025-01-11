@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/show.scss";
+import "./show.scss";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
-import { deviantartApi, unsplashApi } from "./api";
-import useCustomTimer from "../customHooks/useCustomTimer";
+import { deviantartApi, unsplashApi } from "../api";
+import useCustomTimer from "../../customHooks/useCustomTimer";
 import {
   LeftCircleOutlined,
   PauseCircleOutlined,

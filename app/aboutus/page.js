@@ -1,4 +1,4 @@
-import AboutUs from "../../components/AboutUs";
+import AboutUs from "../../components/aboutUs/AboutUs";
 import React from "react";
 
 const AboutUsRoute = () => {
