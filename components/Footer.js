@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import '../styles/footer.css';
+import '../styles/footer.scss';
 import Link from 'next/link';
 import { InstagramOutlined, FacebookOutlined, YoutubeOutlined, ArrowUpOutlined } from '@ant-design/icons';
 

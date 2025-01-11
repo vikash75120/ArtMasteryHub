@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/show.css";
+import "../styles/show.scss";
 import PanZoom from "react-easy-panzoom";
 import { useRouter } from "next/navigation";
 import { deviantartApi, unsplashApi } from "./api";

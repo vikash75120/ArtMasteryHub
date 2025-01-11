@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Button } from 'antd';
-import '../styles/contactus.css';
+import '../styles/contactus.scss';
 
 const Contact = () => {
   return (

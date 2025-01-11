@@ -1,6 +1,6 @@
 import { Input, Radio, Space } from 'antd';
 import { useState } from 'react';
-import '../../styles/configureCard.css';
+import '../../styles/configureCard.scss';
 
 
 const ChooseModule = () => {
