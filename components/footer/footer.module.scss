@@ -1,0 +1,44 @@
+@import "../../styles/variables.module.scss";
+@import "../../styles/media.module.scss";
+
+.footerContainer {
+    background-color: $footer-background-color;
+    color: $footer-text-color-primary;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    .topFooter {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        gap: 5%;
+        padding: 3% 4%;
+
+        @include mobile {
+            flex-direction: column;
+            gap: 10%;            
+        }
+
+        .footerLink {
+            margin-bottom: 10px;
+            h3 {
+                font-size: 20px;
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                li a {
+                    color: $footer-text-color-secondary;
+                    text-decoration: none;
+                    font-size: 14px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

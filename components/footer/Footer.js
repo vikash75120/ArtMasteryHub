@@ -1,51 +1,51 @@
-"use client"
+"use client";
 
-import React from 'react';
-import './footer.scss';
-import Link from 'next/link';
-import { InstagramOutlined, FacebookOutlined, YoutubeOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import styles from "./footer.module.scss";
+import Link from "next/link";
+import { footerNavigation } from "./footer.helper";
+import useIsMobile from "@/customHooks/useIsMobile";
+import SvgWrapper from "../svgWrapper/SvgWrapper";
 
 const Footer = () => {
+  const isMobile = useIsMobile(481);
+  const [visibleIndex, setVisibleIndex] = useState(null);
 
-    const scrollToTop = () => {
-        window.scrollTo({
-          top: 0, 
-          behavior: 'smooth' 
-        });
-      };
+  const handleToggle = (index) => {
+    setVisibleIndex(visibleIndex === index ? null : index);
+  };
 
   return (
-    <div className='footer'>
-        <div className='footer-container'>
-            <div className='footer-content'>
-            <ul className='unordered'>
-                <li><Link href='/aboutus'>ABOUT</Link></li>
-                <li><a>BROWSE</a></li>
-                <li><a>SHOWCASE</a></li>
-                <li><a>FAQ</a></li>
-            </ul>
-            <ul className='unordered'>
-                <li><a>PLANS PRINCING</a></li>
-                <li><a>LICENSES</a></li>
-                <li><a>PRIVACY POLICY</a></li>
-                <li><a>BLOG</a></li>
-            </ul>
-            <ul className='unordered'>
-                <li><Link href='/contactUs'>CONTACT</Link></li>
-                <li><a>TERMS CONDITIONS</a></li>
-            </ul>
+    <div className={styles.footerContainer}>
+      <div className={styles.topFooter}>
+        {footerNavigation
+          .filter((item) => item.tag.includes("footerLink"))
+          .map((item, index) => (
+            <div key={item.id} className={styles.footerLink}>
+              <h3 onClick={() => isMobile && handleToggle(index)}>
+                {item.title} {isMobile && "+"}{" "}
+              </h3>
+              {!isMobile ||
+              visibleIndex === index ||
+              item.tag.includes("social") ? (
+                <ul>
+                  {item.links.map((link) => (
+                    <li key={link.id}>
+                      {item.tag.includes("social") ? (
+                        <Link href={link.link}>{link.title}</Link>
+                      ) : (
+                        <Link href={link.link}>{link.title}</Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
-            <div className='footer-icon'>
-            <a className='icon' href='https://www.instagram.com/'><InstagramOutlined /></a>
-            <a className='icon' href='https://www.facebook.com/'><FacebookOutlined /></a>
-            <a className='icon' href='https://www.youtube.com/'><YoutubeOutlined /></a>
-            </div>  
-            <button className='scrool-to-top' onClick={scrollToTop}>
-                <ArrowUpOutlined />
-            </button>                
-        </div>
+          ))}
+      </div>
+      <div className={styles.bottomFooter}></div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -34,14 +34,11 @@ const Show = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await unsplashApi();
-      // console.log("data", data);
-      // setUnsplashImages(data);
     };
     fetchData();
 
     const deviantFetch = async() =>{
       const data = await deviantartApi();
-      console.log("data fro deviantart", data.results);
       setUnsplashImages(data.results);
     }
     deviantFetch();
@@ -122,7 +119,6 @@ const Show = () => {
           minZoom={0.5}
           maxZoom={3}
           onStateChange={() => {
-            console.log("onStateChange of panZoom");
           }}
           style={{
             minWidth: "100%",
