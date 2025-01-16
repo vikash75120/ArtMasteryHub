@@ -61,9 +61,10 @@ export const footerNavigation = [
     title: "Legal",
     tag: ["copyright"],
     links: [
-      { id: 0, title: "Privacy Policy", link: "/" },
-      { id: 1, title: "Terms of Service", link: "/" },
-      { id: 2, title: "Security", link: "/" },
+      { id: 0, title: "© ArtMasteryHub"},
+      { id: 1, title: "Privacy Policy", link: "/" },
+      { id: 2, title: "Terms of Service", link: "/" },
+      { id: 3, title: "Security", link: "/" },
     ],
   },
 ];

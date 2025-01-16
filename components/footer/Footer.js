@@ -19,7 +19,7 @@ const Footer = () => {
     <div className={styles.footerContainer}>
       <div className={styles.topFooter}>
         {footerNavigation
-          .filter((item) => item.tag.includes("footerLink"))
+          .filter((item) => item?.tag.includes("footerLink"))
           .map((item, index) => (
             <div key={item.id} className={styles.footerLink}>
               <h3 onClick={() => isMobile && handleToggle(index)}>
@@ -43,7 +43,20 @@ const Footer = () => {
             </div>
           ))}
       </div>
-      <div className={styles.bottomFooter}></div>
+      <div className={styles.bottomFooter}>
+        {footerNavigation
+          .filter((item) => item?.tag.includes("copyright"))
+          .map((item) => (
+            <>
+              {item?.links?.map((item, index, array) => (
+                <>
+                  {index === 0 ? <div key={index}>{item.title}</div> : <div key={index}><Link href={item.link} >{item.title}</Link></div> }
+                  {array.length-1 !== index && <span>|</span>}
+                </>
+              ))}
+            </>
+          ))}
+      </div>
     </div>
   );
 };
