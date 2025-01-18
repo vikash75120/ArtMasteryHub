@@ -1,0 +1,17 @@
+@import "./variables.module.scss";
+@import "./media.module.scss";
+
+a {
+    color: $text-body;
+    text-decoration: none;
+    font-size: 14px;
+
+    @include mobile {
+        font-size: 12px;
+    }
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+}

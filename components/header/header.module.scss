@@ -1,0 +1,49 @@
+@import "../../styles/main.module.scss";
+
+.navbarContainer {
+  background-color: $header-background;
+  padding: 16px 32px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    width: 100px;
+    flex: 0 0 7.6em;
+    display: inline-block;
+  }
+
+  .navListContainer {
+    display: flex;
+    gap: 24px;
+  }
+
+  .navHamIconContainer {
+    cursor: pointer;
+  }
+
+  .navRightContainer{
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+}
+
+.navLink {
+  color: $text-heading;
+}
+
+.navSecondaryBtn {
+  border-radius: 20px;
+  height: auto;
+  padding: 0 15px 3px 15px;
+  border: 2px solid $text-body;
+  color: $text-heading;
+
+  &:hover {
+    border: 2px solid $text-heading !important;
+    color: $text-heading !important;
+  }
+}

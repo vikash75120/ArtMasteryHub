@@ -1,97 +1,76 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { SearchOutlined, UserOutlined, MenuFoldOutlined, CloseOutlined } from '@ant-design/icons';
-
-import './header.scss';
+import React, { useState } from "react";
+import Link from "next/link";
+import {
+  SearchOutlined,
+  UserOutlined,
+  CloseOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
+import styles from "./header.module.scss";
+import { headerNavigation } from "./header.helper";
+import { Button, Dropdown } from "antd";
+import useIsMobile from "@/customHooks/useIsMobile";
 
 const Header = () => {
-  const [searchVisible, setSearchVisible] = useState(false); 
+  const [searchVisible, setSearchVisible] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const isNavSidebar = useIsMobile(832);
 
   const handleSearchClick = () => {
     setSearchVisible(!searchVisible);
   };
 
   const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible); 
-  };  
+    setSidebarVisible(!sidebarVisible);
+  };
 
   const closeSidebar = () => {
-    setSidebarVisible(false); 
+    setSidebarVisible(false);
   };
 
   return (
-    <div className='my-navbar'>
-      <Link href="/">
-        <img src="https://www.bodiesinmotion.photo/img/logowhite2.webp" alt="brand-logo" />
-      </Link>
-      <button className='nav-toggle' type='button' aria-label='menu' onClick={toggleSidebar}>
-        <MenuFoldOutlined />
-      </button>
-
-      {!sidebarVisible ? (
-        <>
-        <div className="navbar-content">
-          <ul>
-            <li><Link href="/">BROWSE</Link></li>
-            <li><Link href="/">SHOWCASE</Link></li>
-            <li><Link href="/">PRICING</Link></li>
-            <li><Link href="/">SUPPORT</Link></li>
-            <li><Link href="/aboutus">ABOUT</Link></li>
-            <li><Link href="/contactUs">CONTACT</Link></li>
-            <li id='quickdraw'><Link href="/quick-draw/show">QUICKDRAW</Link></li>
-          </ul>
-        </div>
-        <div className='nav-acc'>
-        <div className={`search-container ${searchVisible ? 'active' : ''}`}>
-        <input
-          type='search'
-          name='search'
-          aria-label='Search'
-          className='search-bar'
-          placeholder='Search...'/>
-      </div>
-      <button className='search' onClick={handleSearchClick}>
-        <SearchOutlined />
-      </button>
-      <div className='user'><Link href="/"><UserOutlined /></Link></div>
-        </div>
-      </>
-      ) : (
-        <div className="sidebar active">
-          <button className="close-btn" onClick={closeSidebar}>
-            <CloseOutlined />
-          </button>
-          <div className='sidebar-header'>
-            <div className={`search-container ${searchVisible ? 'active' : ''}`}>
-              <input
-                type='search'
-                name='search'
-                aria-label='Search'
-                className='search-bar'
-                placeholder='Search...'
-              />
-            </div>
-            <button className='search' onClick={handleSearchClick}>
-              <SearchOutlined />
-            </button>
-            <div className='user'><Link href="/"><UserOutlined /></Link></div>
-          </div>
-          <ul>
-            <li><Link href="/">BROWSE</Link></li>
-            <li><Link href="/">SHOWCASE</Link></li>
-            <li><Link href="/">PRICING</Link></li>
-            <li><Link href="/">SUPPORT</Link></li>
-            <li><Link href="/aboutus">ABOUT</Link></li>
-            <li><Link href="/contactUs">CONTACT</Link></li>
-            <li id='quickdraw'><Link href="/quick-draw/show">QUICKDRAW</Link></li>
-          </ul>
+    <div className={styles.navbarContainer}>
+      {isNavSidebar && (
+        <div className={styles.navHamIconContainer}>
+          <MenuOutlined />
         </div>
       )}
+      <Link href="/">
+        <img src="./assets/logo.png" alt="brand-logo" />
+      </Link>
+      {!isNavSidebar && <div className={styles.navListContainer}>
+        {headerNavigation.map((item) => {
+          const items = item?.subNavigation?.map((subItem) => ({
+            key: subItem.id,
+            label: <Link href={subItem.link}>{subItem.display}</Link>,
+          }));
+          return (
+            <div key={item.id} className={styles.navItem}>
+              {item?.subNavigation && item?.subNavigation?.length > 0 ? (
+                <Dropdown menu={{ items }} placement="bottom" arrow>
+                  <Link href="" className={styles.navLink}>{item.title}</Link>
+                </Dropdown>
+              ) : (
+                <>
+                  {item?.tags?.includes("button") ? (
+                    <Button className={styles['navSecondaryBtn']}>{item.title}</Button>
+                  ) : (
+                    <Link href={item.link} className={styles.navLink}>{item.title}</Link>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>}
+      <div className={styles.navRightContainer}>
+        <Link href="/" className={styles.navLink}>Log in</Link>
+        <Button className={styles['navSecondaryBtn']}>Sign up</Button>
+      </div>
     </div>
   );
-}
+};
 
 export default Header;
