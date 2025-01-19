@@ -3,8 +3,7 @@
 .footerContainer {
     background-color: $footer-background;
     color: $text-heading;
-    position: absolute;
-    bottom: 0;
+    position: static;
     width: 100%;
 
     .topFooter {

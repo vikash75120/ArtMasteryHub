@@ -20,8 +20,8 @@ export const headerNavigation = [
     id: 2,
     title: "About",
     subNavigation: [
-      { id: 0, display: "About Us", link: "/" },
-      { id: 1, display: "Contact Us", link: "/" },
+      { id: 0, display: "About Us", link: "/aboutus" },
+      { id: 1, display: "Contact Us", link: "/contactUs" },
     ],
   },
   {

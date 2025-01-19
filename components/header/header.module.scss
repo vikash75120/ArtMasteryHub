@@ -7,6 +7,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  @include mobile {
+    padding: 16px 22px;
+  }
 
   img {
     width: 100px;
@@ -27,6 +32,11 @@
     display: flex;
     gap: 24px;
     align-items: center;
+    button{
+      @include tablet {
+        display: none;
+      }
+    }
   }
 
 }
@@ -45,5 +55,57 @@
   &:hover {
     border: 2px solid $text-heading !important;
     color: $text-heading !important;
+  }
+}
+
+.sidebarHeader{
+  display: flex;
+  justify-content: space-between;
+}
+
+.navSidebar{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .navItem{
+    a{
+      color: $text-heading;
+      &:hover{
+        color: $text-heading;
+      }
+    }
+    .itemTitle{
+      font-size: 16px;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+    .subNav{
+      display: flex;
+      flex-direction: column;
+      margin-left: 4%;
+      gap: 4px;
+      a{
+      color: $text-body;
+        &:hover{
+          color: $text-body;
+        }
+      }
+    }
+  }
+
+}
+
+.sidebarFooter{
+  display: flex;
+  justify-content: space-between;
+  span{
+    margin: 0 5px;
+  }
+  a{
+    color: $text-heading;
+    &:hover{
+      color: $text-heading;
+    }
   }
 }
