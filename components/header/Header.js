@@ -43,8 +43,8 @@ const Header = () => {
                   {item.title}
                 </Link>
                 <div className={styles.subNav}>
-                  {item?.subNavigation?.map((subItem) => (
-                    <Link href={subItem.link}>{subItem.display}</Link>
+                  {item?.subNavigation?.map((subItem,index) => (
+                    <Link key={index} href={subItem.link}>{subItem.display}</Link>
                   ))}
                 </div>
               </>
@@ -108,9 +108,9 @@ const Header = () => {
       {!isNavSidebar && (
         <div className={styles.navListContainer}>
           {headerNavigation.map((item) => {
-            const items = item?.subNavigation?.map((subItem) => ({
+            const items = item?.subNavigation?.map((subItem, index) => ({
               key: subItem.id,
-              label: <Link href={subItem.link}>{subItem.display}</Link>,
+              label: <Link key={index} href={subItem.link}>{subItem.display}</Link>,
             }));
             return (
               <div key={item.id} className={styles.navItem}>
