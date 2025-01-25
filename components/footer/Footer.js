@@ -47,14 +47,14 @@ const Footer = () => {
         {footerNavigation
           .filter((item) => item?.tag.includes("copyright"))
           .map((item) => (
-            <>
+            <div key={item.id} >
               {item?.links?.map((item, index, array) => (
                 <>
                   {index === 0 ? <div key={index}>{item.title}</div> : <div key={index}><Link href={item.link} >{item.title}</Link></div> }
                   {array.length-1 !== index && <span>|</span>}
                 </>
               ))}
-            </>
+            </div>
           ))}
       </div>
     </div>

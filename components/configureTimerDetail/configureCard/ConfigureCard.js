@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./configureCard.module.scss";
 import Search from "antd/es/input/Search";
 
-const chooseModule = (module) => {
+const ChooseModule = (module) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const ConfigureCard = ({ settings }) => {
     <div className={styles.cardContainer}>
       <Card title={settings?.title} bordered={false}>
         {settings?.content?.map((item,index) => {
-          return <div key={index}>{chooseModule(item)}</div>;
+          return <div key={index}><ChooseModule module={item}/></div>;
         })}
       </Card>
     </div>
