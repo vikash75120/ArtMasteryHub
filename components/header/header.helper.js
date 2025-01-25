@@ -31,7 +31,7 @@ export const headerNavigation = [
   },
   {
     id: 4,
-    title: "Quickdraw",
+    title: "Start to Draw",
     link: "/quickdraw",
     tags: ["button"]
   },

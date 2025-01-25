@@ -15,3 +15,62 @@ a {
         text-underline-offset: 5px;
     }
 }
+
+// Below are the code for Ant design Global style changes
+
+.radioGroupContainer {
+    .ant-radio-wrapper {
+        .ant-radio-checked {
+            .ant-radio-inner {
+                background-color: $button-color-primary;
+                border-color: $button-color-primary;
+            }
+        }
+
+        &:hover {
+            .ant-radio-inner {
+                border-color: $button-color-primary;
+            }
+        }
+    }
+}
+
+.ant-input {
+
+    &:hover,
+    &:focus {
+        border-color: $button-color-primary;
+        box-shadow: none;
+    }
+
+}
+
+.ant-input-search-button {
+    &:hover {
+        color: $button-color-primary !important;
+        border-color: $button-color-primary !important;
+    }
+
+}
+
+.ant-picker {
+
+    &:hover,
+    &:focus {
+        border-color: $button-color-primary;
+        box-shadow: none;
+    }
+}
+
+.ant-picker-time-panel-container {
+    .ant-picker-footer {
+        display: none !important;
+    }
+}
+
+.ant-btn-variant-outlined{
+    &:hover {
+        color: $button-color-primary !important;
+        border-color: $button-color-primary !important;
+    }
+}

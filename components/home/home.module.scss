@@ -1,0 +1,15 @@
+.customButtonContainer {
+    :global(.ant-btn) {
+        color: green ;
+      }
+      .customButtonContainer2{
+        :global(.ant-btn) {
+            color: orange ;
+            &:hover {
+                color: red;
+                border: 1px solid red;
+              }
+          }
+      }
+}
+
