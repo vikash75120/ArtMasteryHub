@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./configureCard.module.scss";
 import Search from "antd/es/input/Search";
 
-const ChooseModule = (module) => {
+const ChooseModule = ({module}) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {

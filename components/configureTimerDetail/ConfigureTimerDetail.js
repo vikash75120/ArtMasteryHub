@@ -22,7 +22,6 @@ const ConfigureTimerDetail = () => {
       <Row
         gutter={16}
         className={styles.timerconfigCardContainer}
-        class={styles.timerConfigRow}
       >
         <Col span={8}>
           <ConfigureCard settings={appModuleSettings} />

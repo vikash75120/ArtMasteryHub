@@ -49,10 +49,10 @@ const Footer = () => {
           .map((item) => (
             <div key={item.id} >
               {item?.links?.map((item, index, array) => (
-                <>
+                <div key={index}>
                   {index === 0 ? <div key={index}>{item.title}</div> : <div key={index}><Link href={item.link} >{item.title}</Link></div> }
                   {array.length-1 !== index && <span>|</span>}
-                </>
+                </div>
               ))}
             </div>
           ))}
