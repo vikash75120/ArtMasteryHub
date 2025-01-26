@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
+
 /* 
     UseCase::
-      => Pass down the dimesioms.
+      => Pass down the dimensions.
       => return boolean [true::dimension, false::!dimension]
-  */
+*/
 const useIsMobile = (dimension) => {
-  let breakpoint = dimension ? dimension : 480;
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+  const breakpoint = dimension || 480;
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= breakpoint : false // Ensure SSR safety
+  );
 
   useEffect(() => {
+    // Guard for SSR
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
       setIsMobile(window.innerWidth <= breakpoint);
     };
