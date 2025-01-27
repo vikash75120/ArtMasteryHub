@@ -57,14 +57,24 @@
     }
 
     .bottomFooter {
-        display: flex;
-        justify-content: center;
         font-size: 14px;
         font-weight: 500;
         color: $text-body;
         border-top: 1px solid $border-primary;
         padding: 20px;
-        flex-wrap: wrap;
+
+        .bottomFooterCopyright {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            .bottomFooterLink {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+        }
 
         @include mobile {
             font-size: 12px;

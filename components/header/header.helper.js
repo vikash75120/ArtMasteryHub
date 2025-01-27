@@ -32,7 +32,7 @@ export const headerNavigation = [
   {
     id: 4,
     title: "Start to Draw",
-    link: "/quickdraw",
+    link: "/quick-draw",
     tags: ["button"]
   },
 ];

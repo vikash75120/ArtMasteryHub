@@ -1,9 +1,9 @@
-import Show from "../../../components/show/Show";
+import Slideshow from "../../../components/slideshow/Slideshow";
 
 const ShowRoute = () => {
   return (
     <main>
-      <Show />
+      <Slideshow />
     </main>
   );
 };

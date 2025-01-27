@@ -13,7 +13,7 @@ import {
 const ConfigureTimerDetail = () => {
   const router = useRouter();
   const handleClick = () => {
-    router.push("/quick-draw/show");
+    router.push("/quick-draw/slideshow");
   };
 
   return (

@@ -12,10 +12,12 @@ import styles from "./header.module.scss";
 import { headerNavigation } from "./header.helper";
 import { Button, Drawer, Dropdown } from "antd";
 import useIsMobile from "@/customHooks/useIsMobile";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const isNavSidebar = useIsMobile(832);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const router = useRouter();
 
   const showDrawer = () => {
     setOpenSidebar(true);
@@ -123,7 +125,7 @@ const Header = () => {
                 ) : (
                   <>
                     {item?.tags?.includes("button") ? (
-                      <Button className={styles["navSecondaryBtn"]}>
+                      <Button className={styles["navSecondaryBtn"]} onClick={() => router.push(item.link)}>
                         {item.title}
                       </Button>
                     ) : (

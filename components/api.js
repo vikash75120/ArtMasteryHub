@@ -9,5 +9,6 @@ export const unsplashApi = async (boardId = '8721905') => {
 export const deviantartApi = async () => {
     const response = await fetch(`/api/deviantartApi?userId=anthonypresley`);
     const data = await response.json();
+    console.log("testing data", data);
     return data;
 };

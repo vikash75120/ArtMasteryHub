@@ -47,9 +47,9 @@ const Footer = () => {
         {footerNavigation
           .filter((item) => item?.tag.includes("copyright"))
           .map((item) => (
-            <div key={item.id} >
+            <div key={item.id} className={styles.bottomFooterCopyright}>
               {item?.links?.map((item, index, array) => (
-                <div key={index}>
+                <div key={index} className={styles.bottomFooterLink}>
                   {index === 0 ? <div key={index}>{item.title}</div> : <div key={index}><Link href={item.link} >{item.title}</Link></div> }
                   {array.length-1 !== index && <span>|</span>}
                 </div>
