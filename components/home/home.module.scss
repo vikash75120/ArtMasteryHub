@@ -1,3 +1,9 @@
+@import "../../styles/main.module.scss";
+
+.homeContainer{
+  background-color: $page-background;
+}
+
 .customButtonContainer {
     :global(.ant-btn) {
         color: green ;
