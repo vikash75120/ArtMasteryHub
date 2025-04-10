@@ -4,6 +4,7 @@ import {Button, Carousel } from "antd";
 import { useRouter } from "next/navigation";
 import styles from "./home.module.scss";
 import LibraryShowcase from "../library-howcase/library-showcase";
+import Heatmap from "../heatMap/heatMap";
 
 //art-mastery-hub
 
@@ -65,6 +66,7 @@ const Home = () => {
         <div>
           <LibraryShowcase/>
         </div>
+        <Heatmap/>
       </div>
     </main>
   );
