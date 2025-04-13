@@ -18,9 +18,9 @@ const ConfigureTimerDetail = () => {
   };
 
   const [configuration, setConfiguration] = useState({
-    appModule: {},
-    libraryModule: {},
-    timerModule: {},
+    appSelection: {},
+    librarySelection: {},
+    timerSelection: {},
   });
 
   console.log("testing configuration", configuration);
