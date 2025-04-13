@@ -1,29 +1,27 @@
 import { Card, Radio, Space, TimePicker } from "antd";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setConfiguration } from "@/store/slices/configurationSlice";
 import styles from "./configureCard.module.scss";
 import Search from "antd/es/input/Search";
 
-const ChooseModule = ({ module, moduleId, setConfiguration }) => {
-  const [value, setValue] = useState("");
-
-  useEffect(() => {
-    setValue(module?.fields[0]?.value || "");
-  }, [module]);
+const ChooseModule = ({ module, moduleId }) => {
+  const configuration = useSelector((state) => state.configuration);
+  console.log("testing configuration", configuration);
+  const dispatch = useDispatch();
 
   const updateConfig = (fieldId, val) => {
-    setConfiguration((prev) => ({
-      ...prev,
-      [moduleId]: {
-        ...prev[moduleId],
-        [fieldId]: val,
-      },
-    }));
+    dispatch(
+      setConfiguration({
+        [moduleId]: {
+          ...configuration[moduleId],
+          [fieldId]: val,
+        },
+      })
+    );
   };
 
   const onRadioValueChange = (e) => {
-    const val = e.target.value;
-    setValue(val);
-    updateConfig(module.id, val);
+    updateConfig("radio_checked", e.target.value);
   };
 
   const onSearch = (val) => {
@@ -31,7 +29,7 @@ const ChooseModule = ({ module, moduleId, setConfiguration }) => {
   };
 
   const onTimePickerChange = (time, timeString) => {
-    updateConfig(module.fields[0]?.label, timeString); // using label as key for simplicity
+    updateConfig(module.fields[0]?.id, timeString);
   };
 
   switch (module.label) {
@@ -39,7 +37,7 @@ const ChooseModule = ({ module, moduleId, setConfiguration }) => {
       return (
         <Radio.Group
           onChange={onRadioValueChange}
-          value={value}
+          value={configuration?.appSelection?.radio_checked || ""}
           className={`radioGroupContainer`}
         >
           <Space direction="vertical">
@@ -86,17 +84,13 @@ const ChooseModule = ({ module, moduleId, setConfiguration }) => {
   }
 };
 
-const ConfigureCard = ({ settings, setConfiguration }) => {
+const ConfigureCard = ({ settings }) => {
   return (
     <div className={styles.cardContainer}>
       <Card title={settings?.title} bordered={false}>
         {settings?.content?.map((item, index) => (
           <div key={index}>
-            <ChooseModule
-              module={item}
-              moduleId={settings.id}
-              setConfiguration={setConfiguration}
-            />
+            <ChooseModule module={item} moduleId={settings.id} />
           </div>
         ))}
       </Card>

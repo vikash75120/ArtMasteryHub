@@ -1,34 +1,63 @@
-import { useEffect, useRef, useState } from 'react';
-import Timer from 'easytimer.js';
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import Timer from "easytimer.js";
 
-const useCustomTimer = (initialTime=1) => {
-  const [timeLeft, setTimeLeft] = useState('00:00:00');
+// Convert "00:00:20" to { minutes, seconds }
+const parseTimeString = (timeStr) => {
+  const [hours, minutes, seconds] = timeStr.split(":").map(Number);
+  return {
+    minutes: hours * 60 + minutes,
+    seconds,
+  };
+};
+
+const useCustomTimer = () => {
+  const { timerSelection = {} } = useSelector((state) => state.configuration);
+
+  const [timeLeft, setTimeLeft] = useState("00:00:00");
   const [isRunning, setIsRunning] = useState(false);
+  const [currentPhase, setCurrentPhase] = useState("preparation_time");
+
   const timerRef = useRef(null);
 
-  const initializeTimer = (minutes) => {
-    if (timerRef.current) {
-      timerRef.current.stop();
-    }
+  const getTimerValues = (label) => {
+    const raw = timerSelection?.[label] || "00:00:20";
+    return parseTimeString(raw);
+  };
+
+  const startPhase = (label) => {
+    if (timerRef.current) timerRef.current.stop();
+
+    const { minutes, seconds } = getTimerValues(label);
     timerRef.current = new Timer();
 
-    timerRef.current.start({ countdown: true, startValues: { minutes } });
+    timerRef.current.start({
+      countdown: true,
+      startValues: { minutes, seconds },
+    });
 
-    // Update the time display every second
-    timerRef.current.addEventListener('secondsUpdated', () => {
+    timerRef.current.addEventListener("secondsUpdated", () => {
       setTimeLeft(timerRef.current.getTimeValues().toString());
     });
 
-    // When the timer reaches zero, start with a new value
-    timerRef.current.addEventListener('targetAchieved', () => {
-      initializeTimer(initialTime);
+    timerRef.current.addEventListener("targetAchieved", () => {
+      if (label === "preparation_time") {
+        setCurrentPhase("round_time");
+        startPhase("round_time");
+      } else if (label === "round_time") {
+        setCurrentPhase("rest_time");
+        startPhase("rest_time"); // Optionally loop or stop here
+      } else if (label === "rest_time") {
+        setIsRunning(false); // Stop completely, or loop again if needed
+      }
     });
 
+    setCurrentPhase(label);
     setIsRunning(true);
   };
 
-  const startTimer = (minutes = initialTime) => {
-      initializeTimer(minutes);
+  const startTimer = () => {
+    startPhase("preparation_time");
   };
 
   const pauseTimer = () => {
@@ -46,7 +75,7 @@ const useCustomTimer = (initialTime=1) => {
   };
 
   const resetTimer = () => {
-    initializeTimer(initialTime);
+    startPhase("rest_time");
   };
 
   useEffect(() => {
@@ -57,7 +86,15 @@ const useCustomTimer = (initialTime=1) => {
     };
   }, []);
 
-  return { timeLeft, isRunning, startTimer, pauseTimer, resumeTimer, resetTimer };
+  return {
+    timeLeft,
+    isRunning,
+    currentPhase,
+    startTimer,
+    pauseTimer,
+    resumeTimer,
+    resetTimer,
+  };
 };
 
 export default useCustomTimer;

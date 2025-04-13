@@ -7,17 +7,17 @@ export const appModuleSettings = {
       label: "radio_group",
       fields: [
         {
-          id: 0,
+          id: "unsplash",
           label: "Unsplash",
           value: "unsplash",
         },
         {
-          id: 1,
+          id: "deviant_art",
           label: "Deviant Art",
           value: "deviant_art",
         },
         {
-          id: 2,
+          id: "instagram", 
           label: "Instagram",
           value: "instagram",
         },
@@ -35,7 +35,7 @@ export const libraryModuleSettings = {
       label: "input",
       fields: [
         {
-          id: 0,
+          id: "library_name",
           label: "Enter the library name",
           Placeholder: "Library name",
         },
@@ -53,7 +53,7 @@ export const timerModuleSettings = {
       label: "timer_group",
       fields: [
         {
-          id: 0,
+          id: "preparation_time",
           label: "Preparation Time",
         },
       ],
@@ -63,7 +63,7 @@ export const timerModuleSettings = {
       label: "timer_group",
       fields: [
         {
-          id: 0,
+          id: "round_time",
           label: "Round Time",
         },
       ],
@@ -73,7 +73,7 @@ export const timerModuleSettings = {
       label: "timer_group",
       fields: [
         {
-          id: 0,
+          id: "rest_time",
           label: "Rest Time",
         },
       ],
