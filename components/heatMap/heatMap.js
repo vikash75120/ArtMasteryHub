@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
-import "./heatmap.scss";
+import React, { useEffect, useRef } from "react";
+import CalHeatmap from "cal-heatmap";
+import "cal-heatmap/cal-heatmap.css";
+import Tooltip from "cal-heatmap/plugins/Tooltip";
 
-const Heatmap = () => {
-  const [data, setData] = useState({});
+const HeatMap = () => {
+  const calRef = useRef(null); // 👈 Store CalHeatmap instance
 
   useEffect(() => {
-    // Simulate API response with submission data
+    // Avoid painting again if already initialized
+    if (calRef.current) return;
+
     const simulatedData = {
       "2024-08-10": 1,
       "2025-03-01": 5,
@@ -14,101 +18,81 @@ const Heatmap = () => {
       "2025-03-04": 1,
       "2025-03-06": 4,
     };
-    setData(simulatedData);
+
+    const data = [
+      { date: "2025-02-20", value: 1 },
+      { date: "2025-03-01", value: 5 },
+      { date: "2025-03-02", value: 2 },
+      { date: "2025-03-03", value: 3 },
+      { date: "2025-04-01", value: 4 },
+      { date: "2025-04-06", value: 2 },
+    ];
+
+    const transformedData = Object.entries(simulatedData).reduce(
+      (acc, [dateStr, count]) => {
+        const timestamp = new Date(dateStr).getTime() / 1000;
+        acc[timestamp] = count;
+        return acc;
+      },
+      {}
+    );
+
+    const cal = new CalHeatmap();
+    calRef.current = cal; // 👈 Save reference
+
+    cal.paint({
+      itemSelector: "#cal-heatmap",
+      domain: {
+        type: "month",
+        label: { position: "top" },
+        gutter: 10,
+      },
+      subDomain: {
+        type: "day",
+        radius: 2,
+        width: 12,
+        height: 12,
+      },
+      range: 12,
+      date: { start: new Date(new Date().setFullYear(new Date().getFullYear() - 1)) },
+      scale: {
+        color: {
+          scheme: "YlGn",
+          domain: [0, 1, 2, 3, 4, 5],
+        },
+      },
+      data: {
+        source: data,
+        x: "date",
+        y: "value",
+      },
+    },
+    [
+      [
+        Tooltip,
+        {
+          text: function (date, value, dayjsDate) {
+            return (
+              (value ? value + '°C' : 'No data') + ' on ' + dayjsDate.format('LL')
+            );
+          },
+        },
+      ],
+    ]
+  );
+
+    return () =>
+      cal.destroy().then(() => {
+        calRef.current = null;
+      });
   }, []);
 
-  const generateHeatmap = () => {
-    const days = [];
-    const today = new Date();
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(today.getFullYear() - 1);
-
-    for (let d = new Date(oneYearAgo); d <= today; d.setDate(d.getDate() + 1)) {
-      const dateStr = d.toISOString().split("T")[0];
-      days.push({
-        date: dateStr,
-        count: data[dateStr] || 0,
-        month: d.getMonth(),
-      });
-    }
-
-    return days;
-  };
-
-  const getColorClass = (count) => {
-    if (count >= 5) return "color-4";
-    if (count >= 3) return "color-3";
-    if (count >= 1) return "color-2";
-    return "color-0";
-  };
-
-  const days = generateHeatmap();
-  const weeks = [];
-  const monthLabels = [];
-
-  for (let i = 0; i < days.length; i += 7) {
-    const week = days.slice(i, i + 7);
-    const firstDay = week[0];
-    const month = firstDay?.month;
-    if (
-      monthLabels.length === 0 ||
-      monthLabels[monthLabels.length - 1]?.month !== month
-    ) {
-      monthLabels.push({ index: weeks.length, month });
-    }
-    weeks.push(week);
-  }
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   return (
-    <div className="heatmap-wrapper">
+    <div>
       <h2>Contributions in the past year</h2>
-      <div className="heatmap">
-        {weeks.map((week, i) => {
-          const isNewMonth = monthLabels.find((m) => m.index === i);
-          return (
-            <div
-              key={i}
-              className={`week${isNewMonth ? " new-month" : ""}`}
-              style={isNewMonth ? { marginLeft: "8px" } : {}}
-            >
-              {week.map((day, j) => (
-                <div
-                  key={j}
-                  className={`day ${getColorClass(day.count)}`}
-                  title={`${day.date}: ${day.count} submissions`}
-                ></div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-      <div className="months">
-        {weeks.map((_, i) => {
-          const label = monthLabels.find((m) => m.index === i);
-          return (
-            <div key={i} className="month-label">
-              {label ? monthNames[label.month] : ""}
-            </div>
-          );
-        })}
-      </div>
+      <div id="cal-heatmap"></div>
     </div>
   );
 };
 
-export default Heatmap;
+export default HeatMap;

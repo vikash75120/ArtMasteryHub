@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import styles from "./configureCard.module.scss";
 import Search from "antd/es/input/Search";
 
-const ChooseModule = ({module}) => {
+const ChooseModule = ({ module }) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-      setValue(module?.fields[0]?.value);
+    setValue(module?.fields[0]?.value);
   }, [module]);
 
   const onRadioValueChange = (e) => {
@@ -16,16 +16,20 @@ const ChooseModule = ({module}) => {
 
   const onSearch = (value) => console.log(value);
 
-const onTimePickerChange = (time, timeString) => {
-  console.log(time, timeString);
-};
+  const onTimePickerChange = (time, timeString) => {
+    console.log(time, timeString);
+  };
 
   //switch case for different modules
 
   switch (module.label) {
     case "radio_group":
       return (
-        <Radio.Group onChange={onRadioValueChange} value={value} className={`radioGroupContainer`}>
+        <Radio.Group
+          onChange={onRadioValueChange}
+          value={value}
+          className={`radioGroupContainer`}
+        >
           <Space direction="vertical">
             {module?.fields?.map((field) => (
               <Radio key={field?.id} value={field?.value}>
@@ -38,23 +42,31 @@ const onTimePickerChange = (time, timeString) => {
     case "input":
       return (
         <>
-        {module?.fields?.map((field) => (
-          <div key={field?.id} className={styles.searchInputContainer}>
-            <label className={styles.inputLabel}>{field?.label}</label>
-            <Search placeholder={field?.Placeholder} onSearch={onSearch} className={`searchInputButton`} />
-          </div>
-        ))}
+          {module?.fields?.map((field) => (
+            <div key={field?.id} className={styles.searchInputContainer}>
+              <label className={styles.inputLabel}>{field?.label}</label>
+              <Search
+                placeholder={field?.Placeholder}
+                onSearch={onSearch}
+                className={`searchInputButton`}
+              />
+            </div>
+          ))}
         </>
       );
-      case "timer_group":
+    case "timer_group":
       return (
         <>
-        {module?.fields?.map((field) => (
-          <div key={field?.id} className={styles.timerInputContainer}>
-            <label className={styles.timerInputLabel}>{field?.label}</label>
-            <TimePicker onChange={onTimePickerChange} changeOnScroll needConfirm={false} />
-          </div>
-        ))}
+          {module?.fields?.map((field) => (
+            <div key={field?.id} className={styles.timerInputContainer}>
+              <label className={styles.timerInputLabel}>{field?.label}</label>
+              <TimePicker
+                onChange={onTimePickerChange}
+                changeOnScroll
+                needConfirm={false}
+              />
+            </div>
+          ))}
         </>
       );
     default:
@@ -62,12 +74,16 @@ const onTimePickerChange = (time, timeString) => {
   }
 };
 
-const ConfigureCard = ({ settings }) => {
+const ConfigureCard = ({ settings, setConfiguration }) => {
   return (
     <div className={styles.cardContainer}>
       <Card title={settings?.title} bordered={false}>
-        {settings?.content?.map((item,index) => {
-          return <div key={index}><ChooseModule module={item}/></div>;
+        {settings?.content?.map((item, index) => {
+          return (
+            <div key={index}>
+              <ChooseModule module={item} setConfiguration={setConfiguration} />
+            </div>
+          );
         })}
       </Card>
     </div>

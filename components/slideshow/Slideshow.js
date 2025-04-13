@@ -39,18 +39,18 @@ const Slideshow = () => {
     "https://i0.wp.com/picjumbo.com/wp-content/uploads/gorgeous-sunset-over-the-sea-free-image.jpeg?h=800&quality=80",
   ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await unsplashApi();
-    };
-    fetchData();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await unsplashApi();
+  //   };
+  //   fetchData();
 
-    const deviantFetch = async () => {
-      const data = await deviantartApi();
-      setUnsplashImages(data.results);
-    };
-    deviantFetch();
-  }, []);
+  //   const deviantFetch = async () => {
+  //     const data = await deviantartApi();
+  //     setUnsplashImages(data.results);
+  //   };
+  //   deviantFetch();
+  // }, []);
 
   useEffect(() => {
     if (!isRunning) {

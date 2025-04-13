@@ -12,6 +12,7 @@
     "@ant-design/icons": "^5.4.0",
     "antd": "^5.20.3",
     "axios": "^1.7.7",
+    "cal-heatmap": "^4.2.4",
     "easytimer.js": "^4.6.0",
     "emailjs-com": "^3.2.0",
     "next": "^14.2.7",

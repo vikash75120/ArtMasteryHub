@@ -1,5 +1,6 @@
 export const appModuleSettings = {
   title: "Apps Selection",
+  id: "appSelection",
   content: [
     {
       id: 0,
@@ -27,6 +28,7 @@ export const appModuleSettings = {
 
 export const libraryModuleSettings = {
   title: "library Selection",
+  id: "librarySelection",
   content: [
     {
       id: 0,
@@ -44,6 +46,7 @@ export const libraryModuleSettings = {
 
 export const timerModuleSettings = {
   title: "Timer Selection",
+  id: "timerSelection",
   content: [
     {
       id: 0,

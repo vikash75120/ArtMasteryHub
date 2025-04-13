@@ -9,12 +9,21 @@ import {
   libraryModuleSettings,
   timerModuleSettings,
 } from "./configureTimerDetail.helper";
+import { useState } from "react";
 
 const ConfigureTimerDetail = () => {
   const router = useRouter();
   const handleClick = () => {
     router.push("/quick-draw/slideshow");
   };
+
+  const [configuration, setConfiguration] = useState({
+    appModule: {},
+    libraryModule: {},
+    timerModule: {},
+  });
+
+  console.log("testing configuration", configuration);
 
   return (
     <div className={styles.timerConfigContainer}>
@@ -24,13 +33,13 @@ const ConfigureTimerDetail = () => {
         className={styles.timerconfigCardContainer}
       >
         <Col span={8}>
-          <ConfigureCard settings={appModuleSettings} />
+          <ConfigureCard settings={appModuleSettings} setConfiguration={setConfiguration} />
         </Col>
         <Col span={8}>
-          <ConfigureCard settings={libraryModuleSettings} />
+          <ConfigureCard settings={libraryModuleSettings} setConfiguration={setConfiguration} />
         </Col>
         <Col span={8}>
-          <ConfigureCard settings={timerModuleSettings} />
+          <ConfigureCard settings={timerModuleSettings} setConfiguration={setConfiguration} />
         </Col>
       </Row>
       <Row style={{justifyContent:"center"}}>
