@@ -6,7 +6,6 @@ import Search from "antd/es/input/Search";
 
 const ChooseModule = ({ module, moduleId }) => {
   const configuration = useSelector((state) => state.configuration);
-  console.log("testing configuration", configuration);
   const dispatch = useDispatch();
 
   const updateConfig = (fieldId, val) => {
@@ -37,7 +36,7 @@ const ChooseModule = ({ module, moduleId }) => {
       return (
         <Radio.Group
           onChange={onRadioValueChange}
-          value={configuration?.appSelection?.radio_checked || ""}
+          value={configuration?.appSelection?.radio_checked || ""} // Default value from Redux
           className={`radioGroupContainer`}
         >
           <Space direction="vertical">
@@ -58,6 +57,7 @@ const ChooseModule = ({ module, moduleId }) => {
               <Search
                 placeholder={field?.Placeholder}
                 onSearch={onSearch}
+                value={configuration?.librarySelection[field?.id] || ""} // Default value from Redux
                 className={`searchInputButton`}
               />
             </div>
@@ -72,6 +72,11 @@ const ChooseModule = ({ module, moduleId }) => {
               <label className={styles.timerInputLabel}>{field?.label}</label>
               <TimePicker
                 onChange={onTimePickerChange}
+                value={
+                  configuration?.timerSelection
+                    ? new Date(`1970-01-01T${configuration?.timerSelection[field?.id]}Z`) // Assuming the time is in HH:mm:ss format
+                    : null
+                } // Default value from Redux
                 changeOnScroll
                 needConfirm={false}
               />
@@ -97,4 +102,5 @@ const ConfigureCard = ({ settings }) => {
     </div>
   );
 };
+
 export default ConfigureCard;
